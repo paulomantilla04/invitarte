@@ -1,7 +1,7 @@
 import { Map } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import cami from '@/assets/cami.jpg';
+import cami from '@/assets/cami.avif';
 import BlurText from "@/components/reactbits/BlurText";
 import { supabase } from "@/config/supabaseClient";
 import InvitationCamilaDialog from "@/components/ui/InvitationCamilaDialog";
