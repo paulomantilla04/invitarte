@@ -1,11 +1,6 @@
 {
     "buildCommand": "bun run build",
     "installCommand": "bun install",
-    "outputDirectory": "dist",
-    "functions": {
-      "nodejs": {
-        "runtime": "nodejs20.x"
-      }
-    }
+    "outputDirectory": "dist"
   }
   
