@@ -165,9 +165,10 @@ export default function InvitationModal() {
                     setTimeout(resetForm, 1000);
                     toast.success(loadingConfirmation ? "Asistencia confirmada" : "Asistencia cancelada");
                 }
-            } catch (error) {
-                console.error("Error confirming:", error);
-                toast.error("Error al confirmar asistencia");
+            } catch (err) {
+                console.error("Error confirming:", err);
+                setError("Error al confirmar asistencia");
+                toast.error(error || "Error al confirmar asistencia");
             } finally {
                 setLoadingConfirmation(false);
             }
@@ -441,7 +442,7 @@ export default function InvitationModal() {
                                             </AnimatePresence>
 
                                             <Button type="submit" className="w-full cursor-pointer">
-                                                Enviar respuesta
+                                                {loading ? "Enviando..." : "Enviar respuesta"}
                                             </Button>
                                         </form>
                                     </Form>
