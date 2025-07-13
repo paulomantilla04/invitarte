@@ -21,12 +21,14 @@ interface Guest {
     name: string;
     confirmed: boolean | null;
     guests: number | null;
+    maxGuests: number;
 }
 
 const InvitationDialog = () => {
     const isMobile = useMobile();
 
     const [name, setName] = useState<string>("");
+    const [maxGuests, setMaxGuests] = useState<number>(1);
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
@@ -35,6 +37,7 @@ const InvitationDialog = () => {
 
     const resetForm = () => {
         setName("");
+        setMaxGuests(1);
         setError(null);
         setSuccess(false);
         setIsOpen(false);
@@ -53,6 +56,11 @@ const InvitationDialog = () => {
             return false;
         }
 
+        if (maxGuests < 0) {
+            setError("El número de acompañantes debe ser mayor a 0");
+            return false;
+        }
+
         return true;
     }
  
@@ -66,6 +74,7 @@ const InvitationDialog = () => {
             name,
             confirmed: null,
             guests: null,
+            maxGuests: maxGuests,
         }
 
         try {
@@ -105,8 +114,13 @@ const InvitationDialog = () => {
                 <DialogDescription>Solo escribe el nombre y apellido del invitado.</DialogDescription>
             </DialogHeader>
             <div className="flex flex-col items-start gap-2 mb-4 mt-4">
+
+                
                 <Label htmlFor='name'>Nombre y apellido</Label>
-                <Input id="name" type="text" className="w-full mt-2" value={name} onChange={(e) => setName(e.target.value)}/>
+                <Input id="name" type="text" className="w-full mt-1" value={name} onChange={(e) => setName(e.target.value)}/>
+
+                <Label htmlFor='maxGuests'>Núm. de acompañantes permitidos (incluyendo al invitado)</Label>
+                <Input id="maxGuests" type="number" min={1} className="w-full mt-1" value={maxGuests} onChange={(e) => setMaxGuests(Number(e.target.value))}/>
 
                 { error && (
                     <motion.div className="w-full p-2 bg-red-100 text-red-700 rounded text-sm font-montserrat mt-2" initial={{ opacity: 0, y: -25 }} animate={{ opacity: 1, y: 0 }} transition={{ ease: "easeInOut", duration: 0.3 }}>

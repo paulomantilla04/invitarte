@@ -128,3 +128,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+.location-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.location-button::after {
+  content: "";
+  position: absolute;
+  height: 1.5px;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+.location-button:hover::after {
+  width: 100%;
+}
