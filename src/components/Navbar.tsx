@@ -4,7 +4,7 @@ import { useMobile } from "@/hooks/use-mobile";
 import logo from '@/assets/logo.svg';
 import { UserAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router";
-import InvitationDialog from "./InvitationDialog";
+// import InvitationDialog from "./InvitationDialog";
 
 export const Navbar = () => {
     const isMobile = useMobile();
@@ -32,7 +32,7 @@ export const Navbar = () => {
                 </div>
             </div>
             <div className="flex items-center gap-2">
-                <InvitationDialog />
+                {/* <InvitationDialog /> */}
                 <Button variant="default" size={isMobile ? "icon" : "default"} className="cursor-pointer" onClick={handleSignOut}>
                     <LogOut className="h-5 w-5" />
                     {!isMobile && <span className="ml-2">Cerrar sesión</span>}
