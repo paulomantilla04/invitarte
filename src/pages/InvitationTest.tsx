@@ -1,5 +1,4 @@
 import { Map } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import cami from '@/assets/cami.avif';
 import BlurText from "@/components/reactbits/BlurText";
@@ -8,7 +7,7 @@ import InvitationCamilaDialog from "@/components/ui/InvitationCamilaDialog";
 import { useEffect, useState } from "react";
 
 export default function BirthdayInvitation() {
-
+ 
   const [guests, setGuests] = useState<number>(0);
 
   useEffect(() => {
@@ -65,16 +64,15 @@ export default function BirthdayInvitation() {
           {/* Action Buttons */}
           <div className="flex items-center justify-center gap-3">
             <InvitationCamilaDialog />
-            <Button
-              className="flex-1 h-12 bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 transition-all duration-200 rounded-2xl shadow-lg font-montserrat hover:text-white cursor-pointer"
-              onClick={() => {
-                window.open("https://maps.app.goo.gl/FRCXr64FC7stGjYQ9?g_st=ic", "_blank")
-              }}
-              variant="ghost"
+            <a
+              className="flex-1 h-12 bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 transition-all duration-200 rounded-2xl shadow-lg font-montserrat hover:text-white cursor-pointer flex items-center justify-center"
+              href="https://maps.app.goo.gl/FRCXr64FC7stGjYQ9?g_st=ic"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Map className="w-5 h-5 mr-2" />
               Ver mapa
-            </Button>
+            </a>
           </div>
 
           {/* Organizer Section */}
