@@ -163,7 +163,7 @@ export default function InvitationModal() {
 
                 if (data) {
                     setTimeout(resetForm, 1000);
-                    toast.success(loadingConfirmation ? "Asistencia confirmada" : "Asistencia cancelada");
+                    toast.success(loadingConfirmation ? "Asistencia cancelada" : "Asistencia confirmada");
                 }
             } catch (err) {
                 console.error("Error confirming:", err);
@@ -195,7 +195,7 @@ export default function InvitationModal() {
 
                 if (data) {
                     setTimeout(resetForm, 1000);
-                    toast.error(loadingCancelation ? "Asistencia cancelada" : "Asistencia confirmada");
+                    toast.error(loadingCancelation ? "Asistencia confirmada" : "Asistencia cancelada");
                 }      
             } catch (error) {
                 console.error("Error canceling:", error);
