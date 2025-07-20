@@ -3,11 +3,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { ChevronLeft, ChevronRight} from "lucide-react";
+import { ChevronLeft, ChevronRight, Link} from "lucide-react";
 import { supabase } from "@/config/supabaseClient";
-// import { useMobile } from "@/hooks/use-mobile";
+import { useMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
-// import InformationModal from "./InformationModal";
+import InformationModal from "./InformationModal";
 
 type Guest = {
     id: number;
@@ -30,13 +30,13 @@ export default function GuestTable() {
     const [isLoading, setIsLoading] = useState(true);
 
     const pageSize = 5;
-    // const isMobile = useMobile();
+    const isMobile = useMobile();
 
     const fetchGuests = useCallback(async () => {
         try {
             setIsLoading(true);
             const { data, error } = await supabase
-                .from("guests-camila")
+                .from("guests")
                 .select("*")
                 .order("id", { ascending: true });
 
@@ -137,8 +137,7 @@ export default function GuestTable() {
         }
     }
 
-    /*
-
+    
     const copyURL = async (guestId: string) => {
         const url = `${window.location.origin}/invitation/${guestId}`;
 
@@ -156,7 +155,7 @@ export default function GuestTable() {
             toast.error("Error al copiar la URL");
         }
     };
-    */
+    
 
     const getBadgeStyles = (confirmed: boolean | null) => {
         if (confirmed === true) {
@@ -209,7 +208,7 @@ export default function GuestTable() {
                         <TableRow className="bg-black hover:bg-[#2a2a2a]">
                             <TableHead className="w-[50%] text-white">Nombre</TableHead>
                             <TableHead className="text-center text-white">Núm. de acompañantes</TableHead>
-                            {/* <TableHead className="text-center text-white">Acciones</TableHead> */}
+                            <TableHead className="text-center text-white">Acciones</TableHead>
                             <TableHead className="text-center text-white">Estado</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -231,7 +230,7 @@ export default function GuestTable() {
                                 <TableRow key={guest.id}>
                                     <TableCell className="font-medium">{guest.name}</TableCell>
                                     <TableCell className="text-center">{guest.guests ?? "--"}</TableCell>
-                                    {/*  <TableCell className="text-center">
+                                    <TableCell className="text-center">
                                         <div className="flex items-center justify-center gap-2">
                                             <Button
                                                 variant="outline"
@@ -247,7 +246,7 @@ export default function GuestTable() {
 
                                             <InformationModal disabled={!guest.confirmed} guestData={guest}/>
                                         </div>
-                                    </TableCell> */}
+                                    </TableCell>
                                     <TableCell className="text-center">
                                         <Badge className={getBadgeStyles(guest.confirmed)}>
                                             {getBadgeText(guest.confirmed)}

@@ -3,7 +3,7 @@ import App from "./App";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
-import InvitationTest from "./pages/InvitationTest";
+import Invitation from "./pages/Invitation";
 
 
 export const router = createBrowserRouter([
@@ -21,8 +21,10 @@ export const router = createBrowserRouter([
                 )
             },
             {
-                path: "/invite", element: <InvitationTest />
-            }
+                path: "/invitation/:id",
+                element: <Invitation />
+            },
+
 
         ]
     }
