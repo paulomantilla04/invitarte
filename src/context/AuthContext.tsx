@@ -5,6 +5,7 @@ import type { Session } from "@supabase/supabase-js";
 interface AuthContextType {
     session: Session | null;
     signIn: (email: string, password: string) => Promise<{ success: boolean; data?: any; error?: any }>;
+    signUp: (email: string, password: string, displayName: string) => Promise<{ success: boolean; data?: any; error?: any }>;
     signOut: () => Promise<{ success: boolean; error?: any }>;
     loading: boolean;
 }
@@ -17,7 +18,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     const [loading, setLoading] = useState<boolean>(true);
 
     const signIn = async (email: string, password: string) => {
-
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
@@ -36,7 +36,33 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         }
 
         console.log("Inicio de sesión exitoso", data);
+        return { success: true, data };
+    }
 
+    const signUp = async (email: string, password: string, displayName: string) => {
+        const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    displayName: displayName
+                }
+            }
+        });
+
+        if (error) {
+            console.error("Hubo un problema al registrarse", error);
+            return {
+                success: false,
+                error: {
+                    message: error.message === "User already registered"
+                        ? "Este correo electrónico ya está registrado"
+                        : "Error al registrarse. Por favor, inténtalo de nuevo.",
+                }
+            };
+        }
+
+        console.log("Registro exitoso", data);
         return { success: true, data };
     }
 
@@ -48,7 +74,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         }
         return { success: true };
     }
-
 
     useEffect(() => {
         const getSession = async () => {
@@ -69,7 +94,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     }, []);
 
     return (
-        <AuthContext.Provider value={{ session, signIn, signOut, loading }}>
+        <AuthContext.Provider value={{ session, signIn, signUp, signOut, loading }}>
             {children}
         </AuthContext.Provider>
     )

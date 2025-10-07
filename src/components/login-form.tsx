@@ -17,6 +17,7 @@ export default function LoginForm() {
     const navigate = useNavigate();
     const { signIn } = UserAuth();
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -28,11 +29,11 @@ export default function LoginForm() {
                 navigate("/dashboard");
 
             } else if (result.error) {
-                alert("Error al iniciar sesión: " + result.error.message);
+                setError("Error al iniciar sesión: " + result.error.message);
             }
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
-            alert("Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+            setError("Error al iniciar sesión. Por favor, inténtalo de nuevo.");
         } finally {
             setLoading(false);
         }
@@ -92,6 +93,8 @@ export default function LoginForm() {
                         <LogIn className="mr-2 h-4 w-4" />
                         {loading ? "Iniciando sesión..." : "Iniciar sesión"}
                     </Button>
+                    <p className="text-sm font-montserrat mt-4">¿No tienes una cuenta? <a href="/register" className="text-blue-500">Regístrate</a></p>
+                    {error && <p className="text-red-500 text-sm mt-4 bg-red-100 p-2 rounded-lg font-montserrat text-center">{error}</p>}
                 </motion.span>
             </CardFooter>
         </Card>

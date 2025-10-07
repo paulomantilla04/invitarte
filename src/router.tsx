@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import Invitation from "./pages/Invitation";
+import Register from "./pages/Register";
 
 
 export const router = createBrowserRouter([
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
             {
                 path: "/invitation/:id",
                 element: <Invitation />
+            },
+            {
+                path: "/register",
+                element: <Register />
             },
 
 
